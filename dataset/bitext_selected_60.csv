@@ -1,0 +1,61 @@
+source_row_id,flags,category,intent,instruction
+25676,BL,ORDER,track_order,I am trying to see order {{Order Number}} status
+24993,BLZ,ORDER,track_order,help to locate purchaes {{Order Number}}
+24933,BQ,ORDER,track_order,show me the eta of the order {{Order Number}}
+25752,BIL,ORDER,track_order,how to see order {{Order Number}} current status?
+25404,BELNQ,ORDER,track_order,i cannot track purchase {{Order Number}}
+25802,BKL,ORDER,track_order,purchase {{Order Number}} current status
+25213,BEL,ORDER,track_order,I do not know how to see the ETA of purchase {{Order Number}}
+25785,BK,ORDER,track_order,order status
+25354,BE,ORDER,track_order,I do not know how to track order {{Order Number}}
+25327,BLQZ,ORDER,track_order,i wqant assistance checking purchase {{Order Number}} status
+26192,BLQZ,REFUND,track_refund,i expect a reimbursxement of {{Currency Symbol}}{{Refund Amount}}
+26572,BIL,REFUND,track_refund,can you help me to see the restitution status?
+26647,BELM,REFUND,track_refund,I do not know how to know if there are any news on my rebate
+25966,BLZ,REFUND,track_refund,I expect an reimbursement of {{Currency Symbol}}{{Refund Amount}}
+26467,BQZ,REFUND,track_refund,I'm waiting for an refund of {{Currency Symbol}}{{Refund Amount}}
+25934,BKL,REFUND,track_refund,checking status of rebate
+26076,BILQZ,REFUND,track_refund,can ya help me seeing the refnd status
+26682,BCIL,REFUND,track_refund,"I expect a refund of {{Refund Amount}} dollars, has it been processed?"
+26331,BL,REFUND,track_refund,I want help seeing if there is anything wrong with my refund
+26720,BQ,REFUND,track_refund,I'm waiting for a refund of {{Currency Symbol}}{{Refund Amount}}
+386,BCELN,ORDER,cancel_order,"I cannot afford order {{Order Number}}, I need help canceling it"
+51,BK,ORDER,cancel_order,canceling order {{Order Number}}
+363,BLZ,ORDER,cancel_order,I need assistance cancelling purcjase {{Order Number}}
+823,BELN,ORDER,cancel_order,I cannot pay for purchase {{Order Number}}
+319,BELQZ,ORDER,cancel_order,i do not know how to cancel purchasw {{Order Number}}
+488,BLQ,ORDER,cancel_order,need help cancelling purchase {{Order Number}}
+967,B,ORDER,cancel_order,question about canceling order {{Order Number}}
+871,BLN,ORDER,cancel_order,I no longer want purchase {{Order Number}}
+561,BCLN,ORDER,cancel_order,"I can't afford order {{Order Number}}, I need help to cancel it"
+625,BCILM,ORDER,cancel_order,"I bought some articles, how to cancel order {{Order Number}}?"
+6760,BL,REFUND,check_refund_policy,help me see in what cases can I request to be reimbursed
+6214,BLQZ,REFUND,check_refund_policy,want help checking in wht situations can i request refunds
+6041,BIL,REFUND,check_refund_policy,can you help me see in what cases can I ask to be refunded?
+6136,BLQ,REFUND,check_refund_policy,want assistance seeing in what cases can I request a refund
+6767,BCILP,REFUND,check_refund_policy,"I have got to see how long refunds take, will you help me?"
+6814,BILQ,REFUND,check_refund_policy,are charges for services reimbursable
+6616,BQ,REFUND,check_refund_policy,want help checking ur money back policy
+6629,BLZ,REFUND,check_refund_policy,I have to check in which cases can I request refdunds
+6801,BCIL,REFUND,check_refund_policy,"I need to see your reimbursement policy, how do I do it?"
+6116,BIQ,REFUND,check_refund_policy,can i check how long refunds usually take
+2423,BL,SHIPPING,change_shipping_address,information about modifying the delivery address
+2434,BILP,SHIPPING,change_shipping_address,could you give me information about an address correction?
+2122,BIL,SHIPPING,change_shipping_address,can you help me to correct the delivery address?
+2221,BLQ,SHIPPING,change_shipping_address,wanna know more about correcting the address
+2769,BM,SHIPPING,change_shipping_address,I have issues changing my shipping address
+2368,BILW,SHIPPING,change_shipping_address,can you tell me about updating my fucking shipping address?
+2040,BILQ,SHIPPING,change_shipping_address,where can i correct the delivery address
+2966,BCIL,SHIPPING,change_shipping_address,"I have got to correct the delivery address, how to do it?"
+2408,BEL,SHIPPING,change_shipping_address,I am trying to find information about editing the address
+2178,BLZ,SHIPPING,change_shipping_address,information about a deliveryaddress change
+23650,BL,SHIPPING,set_up_shipping_address,there is an issue setting up my delivery address
+23164,BELQW,SHIPPING,set_up_shipping_address,i do not know how to enter my damn new shipping address
+23843,BLZ,SHIPPING,set_up_shipping_address,I have a problem entering the secindary shipping address
+23127,BILPQW,SHIPPING,set_up_shipping_address,where could i submit a goddamn secondary delivery address
+23352,BCL,SHIPPING,set_up_shipping_address,"I have to set my new delivery address up, I need assistance"
+23053,BLQ,SHIPPING,set_up_shipping_address,want help submitting a different delivery address
+23209,BILQ,SHIPPING,set_up_shipping_address,how can i submit my shipping address
+23303,BCLZ,SHIPPING,set_up_shipping_address,"I have got to submit hte secondary shipping address, help me"
+23879,BIL,SHIPPING,set_up_shipping_address,can you help me set up my new shipping address?
+23413,BK,SHIPPING,set_up_shipping_address,shipping address issue
