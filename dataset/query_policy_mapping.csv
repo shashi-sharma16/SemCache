@@ -1,6 +1,6 @@
 query_id,source_row_id,query,expected_policy_id,cacheable,review_status
 Q001,25676,"I am trying to see order {{Order Number}} status",ORDER_LIVE_STATUS,false,provisional
-Q002,24993,"help to locate purchaes {{Order Number}}",ORDER_LIVE_STATUS,false,provisional
+Q002,24993,"help to locate purchaes {{Order Number}}",NEEDS_CLARIFICATION,false,unresolved
 Q003,24933,"show me the eta of the order {{Order Number}}",ORDER_LIVE_STATUS,false,provisional
 Q004,25752,"how to see order {{Order Number}} current status?",ORDER_TRACKING,true,provisional
 Q005,25404,"i cannot track purchase {{Order Number}}",NEEDS_REVIEW,false,unresolved
@@ -60,7 +60,7 @@ Q053,23843,"I have a problem entering the secindary shipping address",NEEDS_REVI
 Q054,23127,"where could i submit a goddamn secondary delivery address",ADD_ADDRESS,true,provisional
 Q055,23352,"I have to set my new delivery address up, I need assistance",NEEDS_CLARIFICATION,false,unresolved
 Q056,23053,"want help submitting a different delivery address",NEEDS_CLARIFICATION,false,unresolved
-Q057,23209,"how can i submit my shipping address",ADD_ADDRESS,true,provisional
+Q057,23209,"how can i submit my shipping address",NEEDS_CLARIFICATION,false,unresolved
 Q058,23303,"I have got to submit hte secondary shipping address, help me",ADD_ADDRESS,true,provisional
 Q059,23879,"can you help me set up my new shipping address?",ADD_ADDRESS,true,provisional
 Q060,23413,"shipping address issue",NEEDS_REVIEW,false,unresolved
