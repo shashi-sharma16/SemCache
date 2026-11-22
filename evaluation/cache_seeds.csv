@@ -1,0 +1,7 @@
+seed_id,query,expected_policy_id,expected_answer_id,source
+S001,How do I track my order?,ORDER_TRACKING,ORDER_TRACKING,manual
+S002,How can I cancel an order?,CANCEL_ORDER,CANCEL_ORDER,manual
+S003,In what cases can I request a refund?,REFUND_ELIGIBILITY,REFUND_ELIGIBILITY,manual
+S004,How long does an approved refund take?,REFUND_TIMELINE,REFUND_TIMELINE,manual
+S005,How can I change the delivery address for an existing order before dispatch?,CHANGE_ADDRESS,CHANGE_ADDRESS,manual
+S006,How do I add a new shipping address to my account?,ADD_ADDRESS,ADD_ADDRESS,manual

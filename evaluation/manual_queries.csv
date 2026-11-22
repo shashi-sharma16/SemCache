@@ -1,0 +1,41 @@
+query_id,source_row_id,query,query_type,expected_policy_id,expected_outcome,cacheable,related_query_id,source
+M001,,Where can I find the tracking details for my order?,EQUIVALENT_PARAPHRASE,ORDER_TRACKING,CACHE_LOOKUP,true,S001,manual
+M002,,How do I check the tracking information for an order?,EQUIVALENT_PARAPHRASE,ORDER_TRACKING,CACHE_LOOKUP,true,S001,manual
+M003,,Can you explain how to track an order?,EQUIVALENT_PARAPHRASE,ORDER_TRACKING,CACHE_LOOKUP,true,S001,manual
+M004,,What steps should I follow to cancel an order?,EQUIVALENT_PARAPHRASE,CANCEL_ORDER,CACHE_LOOKUP,true,S002,manual
+M005,,How can I request cancellation of my purchase?,EQUIVALENT_PARAPHRASE,CANCEL_ORDER,CACHE_LOOKUP,true,S002,manual
+M006,,Where can I find the option to cancel an order?,EQUIVALENT_PARAPHRASE,CANCEL_ORDER,CACHE_LOOKUP,true,S002,manual
+M007,,Under what conditions can I get a refund?,EQUIVALENT_PARAPHRASE,REFUND_ELIGIBILITY,CACHE_LOOKUP,true,S003,manual
+M008,,Which situations qualify an order for a refund?,EQUIVALENT_PARAPHRASE,REFUND_ELIGIBILITY,CACHE_LOOKUP,true,S003,manual
+M009,,What makes a purchase eligible for reimbursement?,EQUIVALENT_PARAPHRASE,REFUND_ELIGIBILITY,CACHE_LOOKUP,true,S003,manual
+M010,,Can you explain the eligibility rules for refunds?,EQUIVALENT_PARAPHRASE,REFUND_ELIGIBILITY,CACHE_LOOKUP,true,S003,manual
+M011,,How long does an approved refund usually take?,EQUIVALENT_PARAPHRASE,REFUND_TIMELINE,CACHE_LOOKUP,true,S004,manual
+M012,,What is the usual refund processing period?,EQUIVALENT_PARAPHRASE,REFUND_TIMELINE,CACHE_LOOKUP,true,S004,manual
+M013,,Within how many business days should I expect an approved refund?,EQUIVALENT_PARAPHRASE,REFUND_TIMELINE,CACHE_LOOKUP,true,S004,manual
+M014,,How can I modify my delivery address before dispatch?,EQUIVALENT_PARAPHRASE,CHANGE_ADDRESS,CACHE_LOOKUP,true,S005,manual
+M015,,Where can I edit the shipping address for an order?,EQUIVALENT_PARAPHRASE,CHANGE_ADDRESS,CACHE_LOOKUP,true,S005,manual
+M016,,What is the procedure for updating an order's delivery address?,EQUIVALENT_PARAPHRASE,CHANGE_ADDRESS,CACHE_LOOKUP,true,S005,manual
+M017,,How do I correct an incorrect shipping address before my order ships?,EQUIVALENT_PARAPHRASE,CHANGE_ADDRESS,CACHE_LOOKUP,true,S005,manual
+M018,,How can I add a new delivery address to my account?,EQUIVALENT_PARAPHRASE,ADD_ADDRESS,CACHE_LOOKUP,true,S006,manual
+M019,,Where can I save an additional shipping address?,EQUIVALENT_PARAPHRASE,ADD_ADDRESS,CACHE_LOOKUP,true,S006,manual
+M020,,What steps are required to enter a new address in my account?,EQUIVALENT_PARAPHRASE,ADD_ADDRESS,CACHE_LOOKUP,true,S006,manual
+H001,,Where is my order right now?,HARD_NEGATIVE,ORDER_LIVE_STATUS,BYPASS_CACHE,false,S001,manual
+H002,,Has my order been shipped yet?,HARD_NEGATIVE,ORDER_LIVE_STATUS,BYPASS_CACHE,false,S001,manual
+H003,,Can you cancel my order immediately?,HARD_NEGATIVE,CANCEL_ORDER,BYPASS_CACHE,false,S002,manual
+H004,,Has my cancellation request been processed?,HARD_NEGATIVE,CANCEL_ORDER,BYPASS_CACHE,false,S002,manual
+H005,,Has my refund been approved?,HARD_NEGATIVE,REFUND_STATUS,BYPASS_CACHE,false,S003,manual
+H006,,Why has my refund not arrived yet?,HARD_NEGATIVE,REFUND_STATUS,BYPASS_CACHE,false,S004,manual
+H007,,Please change the delivery address of my current order.,HARD_NEGATIVE,CHANGE_ADDRESS,BYPASS_CACHE,false,S005,manual
+H008,,Has my shipping address been updated successfully?,HARD_NEGATIVE,CHANGE_ADDRESS,BYPASS_CACHE,false,S005,manual
+H009,,What is the delivery address saved on my account?,HARD_NEGATIVE,NEEDS_REVIEW,REVIEW_REQUIRED,false,S006,manual
+H010,,Replace my existing saved address with a new one.,HARD_NEGATIVE,ADD_ADDRESS,BYPASS_CACHE,false,S006,manual
+U001,,What is the capital of Japan?,UNRELATED,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manual
+U002,,Explain how machine learning works.,UNRELATED,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manual
+U003,,Can you suggest a healthy breakfast?,UNRELATED,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manual
+U004,,How do I create a Python dictionary?,UNRELATED,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manual
+U005,,What are the benefits of regular exercise?,UNRELATED,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manual
+U006,,Explain the difference between RAM and ROM.,UNRELATED,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manual
+U007,,How can I improve my public speaking skills?,UNRELATED,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manual
+U008,,What causes a rainbow to appear?,UNRELATED,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manual
+U009,,Suggest some beginner-friendly chess strategies.,UNRELATED,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manual
+U010,,How do I calculate the standard deviation?,UNRELATED,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manual
