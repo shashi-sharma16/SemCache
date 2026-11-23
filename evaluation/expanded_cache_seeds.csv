@@ -1,0 +1,9 @@
+seed_id,query,expected_policy_id
+E001,How do I cancel a purchase?,CANCEL_ORDER
+E002,Which situations qualify for a refund?,REFUND_ELIGIBILITY
+E003,What is the usual refund processing period?,REFUND_TIMELINE
+E004,Where can I edit the shipping address?,CHANGE_ADDRESS
+E005,How do I add another delivery address?,ADD_ADDRESS
+E006,How can I correct an incorrect shipping address before dispatch?,CHANGE_ADDRESS
+E007,What makes a purchase eligible for reimbursement?,REFUND_ELIGIBILITY
+E008,How long does it usually take to receive an approved refund?,REFUND_TIMELINE

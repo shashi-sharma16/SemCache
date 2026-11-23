@@ -1,6 +1,9 @@
+
 import csv
 from pathlib import Path
 
+from backend.services.query_guard import guard_query
+from backend.services.policy_classifier import identify_policy
 from backend.services.cache_service import lookup_cache
 
 
@@ -18,9 +21,25 @@ def run_benchmark():
     results = []
 
     for query in queries:
-        # Retrieve the nearest cache entry once per query.
-        # Threshold decisions are evaluated separately below.
-        match = lookup_cache(query["query"], threshold=0.0)
+        text = query["query"]
+
+        # Stage 1: Query Guard
+        guard_result = guard_query(text)
+        decision = guard_result["decision"]
+
+        # Stage 2: Policy identification and cache lookup
+        policy_result = None
+        match = {"cache_hit": False}
+
+        if decision == "CACHE_LOOKUP":
+            policy_result = identify_policy(text)
+
+            if policy_result["identified"]:
+                match = lookup_cache(
+                    query=text,
+                    policy_id=policy_result["policy_id"],
+                    threshold=0.0
+                )
 
         for threshold in THRESHOLDS:
             predicted_hit = (
@@ -44,6 +63,17 @@ def run_benchmark():
             results.append({
                 "query_id": query["query_id"],
                 "threshold": threshold,
+                "guard_decision": decision,
+                "identified_policy_id": (
+                    policy_result["policy_id"]
+                    if policy_result and policy_result["identified"]
+                    else ""
+                ),
+                "policy_similarity": (
+                    policy_result["similarity"]
+                    if policy_result
+                    else ""
+                ),
                 "expected_outcome": query["expected_outcome"],
                 "expected_policy_id": query["expected_policy_id"],
                 "matched_policy_id": match.get("policy_id", ""),
@@ -55,7 +85,10 @@ def run_benchmark():
             })
 
     with open(RESULT_FILE, "w", encoding="utf-8", newline="") as file:
-        writer = csv.DictWriter(file, fieldnames=results[0].keys())
+        writer = csv.DictWriter(
+            file,
+            fieldnames=results[0].keys()
+        )
         writer.writeheader()
         writer.writerows(results)
 

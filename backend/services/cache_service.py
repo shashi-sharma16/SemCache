@@ -1,28 +1,32 @@
+
 from backend.core.config import SIMILARITY_THRESHOLD
 from backend.services.embedding_service import generate_embedding
-from backend.services.vector_store import search_cache
+from backend.services.vector_store import search_cache, search_expanded_cache
 
 
-def lookup_cache(query: str, threshold: float = SIMILARITY_THRESHOLD):
-    """Check whether a semantically similar cached answer exists."""
+def _lookup(
+    query: str,
+    policy_id: str,
+    search_function,
+    threshold: float
+):
+    """Shared logic for original and expanded cache lookups."""
 
-    # Convert the incoming query into an embedding
     embedding = generate_embedding(query)
 
-    # Search for the closest cached query
-    result = search_cache(embedding)
+    result = search_function(
+        embedding=embedding,
+        policy_id=policy_id
+    )
 
-    # No cached entries found
     if result is None:
         return {
             "cache_hit": False,
-            "reason": "CACHE_EMPTY"
+            "reason": "NO_MATCHING_POLICY_ENTRY"
         }
 
-    # ChromaDB uses cosine distance, not similarity
     similarity = max(0.0, min(1.0, 1 - result["distance"]))
 
-    # Check whether the match meets our threshold
     if similarity >= threshold:
         return {
             "cache_hit": True,
@@ -36,5 +40,26 @@ def lookup_cache(query: str, threshold: float = SIMILARITY_THRESHOLD):
         "cache_hit": False,
         "reason": "SIMILARITY_BELOW_THRESHOLD",
         "matched_query": result["query"],
+        "policy_id": result["metadata"]["policy_id"],
         "similarity": similarity
     }
+
+
+def lookup_cache(
+    query: str,
+    policy_id: str,
+    threshold: float = SIMILARITY_THRESHOLD
+):
+    """Search the original cache."""
+
+    return _lookup(query, policy_id, search_cache, threshold)
+
+
+def lookup_expanded_cache(
+    query: str,
+    policy_id: str,
+    threshold: float = SIMILARITY_THRESHOLD
+):
+    """Search the expanded experimental cache."""
+
+    return _lookup(query, policy_id, search_expanded_cache, threshold)
