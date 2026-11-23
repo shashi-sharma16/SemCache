@@ -61,7 +61,7 @@ def guard_query(query: str) -> dict:
     r"\b(question about|question regarding)\b.*\b(cancel|cancell?ing)\b.*\b(order|purchase)\b",
     r"\b(cannot pay|can't pay|can not pay)\b.*\b(purchase|order)\b",
     r"\b(help|assistance)\b.*\b(locate|find|track)\b.*\b(purchaes|purchase|order)\b.*\{\{.*?\}\}",
-    r"\b(help|assistance)\b.*\b(set up|setup|add|submit|provide)\b.*\b(new|different|another)\b.*\b(delivery|shipping)\s+address\b",
+    r"\b(help|assistance)\b.*\b(set up|setup|add|submit|provide)\b.*\b(new|different|another)\b.*\b(delivery|shipping)\s+address\b.*\b(for me|on my behalf)\b",
     r"\b(set|add|submit|provide)\b.*\b(new|different|another)\b.*\b(delivery|shipping)\s+address\b.*\b(help|assistance)\b",
     r"\bhelp\b.*\b(submit\w*|provide|send)\b.*\b(delivery|shipping)\s+address\b",
     r"\b(shipping|delivery)\s+address\s+(issue|problem|error)\b",
