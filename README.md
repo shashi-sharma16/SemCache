@@ -4,7 +4,7 @@
 
 SemCache is a local semantic caching engine designed to reduce repeated Large Language Model (LLM) calls by identifying semantically similar queries and reusing previously stored responses.
 
-Unlike basic similarity-based caching, SemCache combines query routing, policy classification, and policy-aware semantic retrieval to reduce the risk of returning an irrelevant or incorrect cached answer.
+SemCache goes beyond basic similarity-based caching by combining rule-based query routing, embedding-based policy classification, and policy-aware semantic retrieval. This helps prevent inappropriate cache reuse for requests that require customer-specific or live information.
 
 ## Problem Statement
 
@@ -21,7 +21,7 @@ A customer query passes through the following stages:
 1. **Query Guard:** Determines whether the request should use the cache, bypass it, request clarification, or require review.
 2. **Policy Classifier:** Identifies the relevant supported policy for cacheable queries.
 3. **Semantic Cache:** Searches for a sufficiently similar query within the identified policy.
-4. **Policy-Based Fallback:** If no sufficiently similar cached response exists, SemCache returns the authoritative answer from its policy knowledge base.
+4. **Policy-Based Fallback:** If no sufficiently similar cached response exists, SemCache returns the configured answer from its policy knowledge base.
 
 ### Request Flow
 
@@ -68,7 +68,7 @@ Customer Query
 - Policy-aware cache retrieval.
 - Query Guard for request routing.
 - Policy classification using sentence embeddings.
-- Authoritative policy-based responses on cache misses.
+- Configured policy-based responses on cache misses.
 - Local LLM service available for future verified-generation improvements.
 - Customer-specific request bypass.
 - Clarification and unsupported-request handling.
@@ -85,8 +85,8 @@ Customer Query
 | API Server | Uvicorn |
 | Embedding Model | all-MiniLM-L6-v2 |
 | Vector Database | ChromaDB |
-| Local LLM Runtime | Ollama |
-| LLM | Qwen 2.5 3B |
+| Local LLM Runtime | Ollama (optional; not used by current API pipeline) |
+| LLM | Qwen 2.5 3B (available for future integration) |
 | Data Validation | Pydantic |
 | Version Control | Git and GitHub |
 
@@ -98,10 +98,10 @@ SemCache/
 ├── backend/
 │   ├── api/
 │   │   └── routes.py
-│   │
 │   ├── core/
 │   │   └── config.py
-│   │
+│   ├── models/
+│   │   └── __init__.py
 │   ├── services/
 │   │   ├── cache_service.py
 │   │   ├── embedding_service.py
@@ -112,13 +112,13 @@ SemCache/
 │   │   ├── query_guard.py
 │   │   ├── seed_service.py
 │   │   └── vector_store.py
-│   │
+│   ├── __init__.py
 │   └── main.py
 │
 ├── dataset/
-│   ├── raw/
 │   ├── bitext_selected_60.csv
 │   ├── query_policy_mapping.csv
+│   ├── select_dataset.py
 │   └── shopease_policies.json
 │
 ├── evaluation/
@@ -128,7 +128,11 @@ SemCache/
 │   ├── unseen_test.csv
 │   └── evaluation scripts and reports
 │
+├── inspect_dataset.py
+├── inspect_flags.py
+├── inspect_intents.py
 ├── requirements.txt
+├── .gitignore
 └── README.md
 ```
 
@@ -137,7 +141,6 @@ SemCache/
 ### Prerequisites
 
 - Python 3.13
-- Ollama
 - Git
 
 ### 1. Clone the repository
@@ -165,17 +168,7 @@ Activate it on Windows PowerShell:
 pip install -r requirements.txt
 ```
 
-### 4. Set up Ollama
-
-Install Ollama separately, then download the model:
-
-```bash
-ollama pull qwen2.5:3b
-```
-
-Ensure the Ollama service is running.
-
-### 5. Start the API
+### 4. Start the API
 
 From the project root:
 
@@ -247,7 +240,7 @@ At a threshold of 0.75, the expanded cache recovered five additional correct mat
 
 ### API Performance Benchmark
 
-The API was evaluated using 100 customer-support queries before and after replacing LLM-generated cache-miss responses with authoritative policy-based responses.
+The same 100-query API benchmark was run against two implementations: the earlier version with LLM-generated cache-miss responses and the current version with policy-based cache-miss responses.
 
 | Metric | Before Policy Fallback | Current Policy Fallback |
 |---|---:|---:|
@@ -293,7 +286,7 @@ The unseen cache evaluation recorded seven correct hits and one false hit at the
 
 - No integration with a real customer-support or order-management system.
 - Customer-specific requests are directed to support rather than retrieved from live customer records.
-- The API currently returns authoritative policy answers on cache misses rather than unverified LLM-generated responses.
+- The API currently returns configured policy answers on cache misses rather than unverified LLM-generated responses.
 - LLM-generated responses are not automatically added to the cache.
 - The current policy classifier supports a limited set of predefined policies.
 - Production-scale performance and latency testing remain future work.
