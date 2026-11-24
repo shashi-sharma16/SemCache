@@ -287,6 +287,3 @@ The unseen cache evaluation recorded seven correct hits and one false hit at the
 
 SemCache is an experimental portfolio project exploring semantic caching, policy-aware retrieval, and safe query routing for LLM applications.
 
-## License
-
-Add a license before distributing or reusing this project.
