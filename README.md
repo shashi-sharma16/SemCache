@@ -258,7 +258,7 @@ The same 100-query API benchmark was run against two implementations: the earlie
 - Maximum observed latency decreased from 11.2778 seconds to 2.465 seconds.
 - Both implementations successfully processed all 100 requests.
 
-The improvement primarily reflects the removal of local LLM generation from the cache-miss response path. The current implementation retrieves authoritative policy answers instead.
+The improvement primarily reflects the removal of local LLM generation from the cache-miss response path. The current implementation retrieves configured policy answers instead.
 
 These are observed results from sequential tests on the same local machine, not controlled production-scale benchmarks. The median latency increased slightly, indicating that the improvement was concentrated in requests that previously incurred expensive LLM generation.
 
