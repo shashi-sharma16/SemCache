@@ -6,7 +6,6 @@ from backend.services.query_guard import guard_query
 from backend.services.policy_classifier import identify_policy
 from backend.services.policy_service import get_policy
 from backend.services.cache_service import lookup_expanded_cache
-from backend.services.llm_service import generate_answer
 
 
 router = APIRouter()
@@ -98,21 +97,22 @@ def process_query(request: QueryRequest):
             "matched_query": cache_result["matched_query"]
         }
 
-    # Step 4: Cache miss - use policy context with local LLM
+    # Step 4: Cache miss - return the authoritative policy answer
     policy = get_policy(policy_id)
 
-    answer = generate_answer(
-        query=query,
-        context=(
-            f"Policy: {policy['topic']}\n"
-            f"Policy details: {policy['answer']}"
-        )
-    )
+    if not policy:
+        return {
+            "decision": "REVIEW_REQUIRED",
+            "reason": "POLICY_NOT_FOUND",
+            "answer": "The requested ShopEase policy could not be retrieved.",
+            "cache_hit": False,
+            "policy_id": policy_id
+        }
 
     return {
         "decision": decision,
         "reason": "CACHE_MISS",
-        "answer": answer,
+        "answer": policy["answer"],
         "cache_hit": False,
         "policy_id": policy_id,
         "similarity": cache_result.get("similarity")

@@ -21,7 +21,7 @@ A customer query passes through the following stages:
 1. **Query Guard:** Determines whether the request should use the cache, bypass it, request clarification, or require review.
 2. **Policy Classifier:** Identifies the relevant supported policy for cacheable queries.
 3. **Semantic Cache:** Searches for a sufficiently similar query within the identified policy.
-4. **LLM Fallback:** If no sufficiently similar cached response exists, a local LLM generates an answer using the relevant policy context.
+4. **Policy-Based Fallback:** If no sufficiently similar cached response exists, SemCache returns the authoritative answer from its policy knowledge base.
 
 ### Request Flow
 
@@ -56,10 +56,10 @@ Customer Query
       +---- Cache Miss
                |
                v
-          Local LLM
+         Retrieve Policy Answer
                |
                v
-         Generated Answer
+         Return Policy Answer
 ```
 
 ## Key Features
@@ -68,7 +68,8 @@ Customer Query
 - Policy-aware cache retrieval.
 - Query Guard for request routing.
 - Policy classification using sentence embeddings.
-- Local LLM fallback through Ollama.
+- Authoritative policy-based responses on cache misses.
+- Local LLM service available for future verified-generation improvements.
 - Customer-specific request bypass.
 - Clarification and unsupported-request handling.
 - REST API built with FastAPI.
@@ -268,6 +269,7 @@ The unseen cache evaluation recorded seven correct hits and one false hit at the
 
 - No integration with a real customer-support or order-management system.
 - Customer-specific requests are directed to support rather than retrieved from live customer records.
+- The API currently returns authoritative policy answers on cache misses rather than unverified LLM-generated responses.
 - LLM-generated responses are not automatically added to the cache.
 - The current policy classifier supports a limited set of predefined policies.
 - Production-scale performance and latency testing remain future work.
