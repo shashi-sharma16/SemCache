@@ -1,0 +1,101 @@
+query_id,source_row_id,query,query_type,expected_policy_id,expected_outcome,cacheable,related_query_id,source
+B001,25676,I am trying to see order {{Order Number}} status,BITEXT_QUERY,ORDER_LIVE_STATUS,BYPASS_CACHE,false,,bitext
+B002,24993,help to locate purchaes {{Order Number}},BITEXT_QUERY,NEEDS_CLARIFICATION,CLARIFY,false,,bitext
+B003,24933,show me the eta of the order {{Order Number}},BITEXT_QUERY,ORDER_LIVE_STATUS,BYPASS_CACHE,false,,bitext
+B004,25752,how to see order {{Order Number}} current status?,BITEXT_QUERY,ORDER_LIVE_STATUS,BYPASS_CACHE,false,,bitext
+B005,25404,i cannot track purchase {{Order Number}},BITEXT_QUERY,ORDER_LIVE_STATUS,BYPASS_CACHE,false,,bitext
+B006,25802,purchase {{Order Number}} current status,BITEXT_QUERY,ORDER_LIVE_STATUS,BYPASS_CACHE,false,,bitext
+B007,25213,I do not know how to see the ETA of purchase {{Order Number}},BITEXT_QUERY,ORDER_LIVE_STATUS,BYPASS_CACHE,false,,bitext
+B008,25785,order status,BITEXT_QUERY,NEEDS_CLARIFICATION,CLARIFY,false,,bitext
+B009,25354,I do not know how to track order {{Order Number}},BITEXT_QUERY,ORDER_TRACKING,CACHE_LOOKUP,true,,bitext
+B010,25327,i wqant assistance checking purchase {{Order Number}} status,BITEXT_QUERY,ORDER_LIVE_STATUS,BYPASS_CACHE,false,,bitext
+B011,26192,i expect a reimbursxement of {{Currency Symbol}}{{Refund Amount}},BITEXT_QUERY,NEEDS_CLARIFICATION,CLARIFY,false,,bitext
+B012,26572,can you help me to see the restitution status?,BITEXT_QUERY,REFUND_STATUS,BYPASS_CACHE,false,,bitext
+B013,26647,I do not know how to know if there are any news on my rebate,BITEXT_QUERY,REFUND_STATUS,BYPASS_CACHE,false,,bitext
+B014,25966,I expect an reimbursement of {{Currency Symbol}}{{Refund Amount}},BITEXT_QUERY,NEEDS_CLARIFICATION,CLARIFY,false,,bitext
+B015,26467,I'm waiting for an refund of {{Currency Symbol}}{{Refund Amount}},BITEXT_QUERY,NEEDS_CLARIFICATION,CLARIFY,false,,bitext
+B016,25934,checking status of rebate,BITEXT_QUERY,REFUND_STATUS,BYPASS_CACHE,false,,bitext
+B017,26076,can ya help me seeing the refnd status,BITEXT_QUERY,REFUND_STATUS,BYPASS_CACHE,false,,bitext
+B018,26682,"I expect a refund of {{Refund Amount}} dollars, has it been processed?",BITEXT_QUERY,REFUND_STATUS,BYPASS_CACHE,false,,bitext
+B019,26331,I want help seeing if there is anything wrong with my refund,BITEXT_QUERY,NEEDS_CLARIFICATION,CLARIFY,false,,bitext
+B020,26720,I'm waiting for a refund of {{Currency Symbol}}{{Refund Amount}},BITEXT_QUERY,NEEDS_CLARIFICATION,CLARIFY,false,,bitext
+B021,386,"I cannot afford order {{Order Number}}, I need help canceling it",BITEXT_QUERY,CANCEL_ORDER,BYPASS_CACHE,false,,bitext
+B022,51,canceling order {{Order Number}},BITEXT_QUERY,NEEDS_CLARIFICATION,CLARIFY,false,,bitext
+B023,363,I need assistance cancelling purcjase {{Order Number}},BITEXT_QUERY,CANCEL_ORDER,BYPASS_CACHE,false,,bitext
+B024,823,I cannot pay for purchase {{Order Number}},BITEXT_QUERY,NEEDS_CLARIFICATION,CLARIFY,false,,bitext
+B025,319,i do not know how to cancel purchasw {{Order Number}},BITEXT_QUERY,CANCEL_ORDER,CACHE_LOOKUP,true,,bitext
+B026,488,need help cancelling purchase {{Order Number}},BITEXT_QUERY,CANCEL_ORDER,BYPASS_CACHE,false,,bitext
+B027,967,question about canceling order {{Order Number}},BITEXT_QUERY,NEEDS_CLARIFICATION,CLARIFY,false,,bitext
+B028,871,I no longer want purchase {{Order Number}},BITEXT_QUERY,CANCEL_ORDER,BYPASS_CACHE,false,,bitext
+B029,561,"I can't afford order {{Order Number}}, I need help to cancel it",BITEXT_QUERY,CANCEL_ORDER,BYPASS_CACHE,false,,bitext
+B030,625,"I bought some articles, how to cancel order {{Order Number}}?",BITEXT_QUERY,CANCEL_ORDER,CACHE_LOOKUP,true,,bitext
+B031,6760,help me see in what cases can I request to be reimbursed,BITEXT_QUERY,REFUND_ELIGIBILITY,CACHE_LOOKUP,true,,bitext
+B032,6214,want help checking in wht situations can i request refunds,BITEXT_QUERY,REFUND_ELIGIBILITY,CACHE_LOOKUP,true,,bitext
+B033,6041,can you help me see in what cases can I ask to be refunded?,BITEXT_QUERY,REFUND_ELIGIBILITY,CACHE_LOOKUP,true,,bitext
+B034,6136,want assistance seeing in what cases can I request a refund,BITEXT_QUERY,REFUND_ELIGIBILITY,CACHE_LOOKUP,true,,bitext
+B035,6767,"I have got to see how long refunds take, will you help me?",BITEXT_QUERY,REFUND_TIMELINE,CACHE_LOOKUP,true,,bitext
+B036,6814,are charges for services reimbursable,BITEXT_QUERY,NEEDS_REVIEW,REVIEW_REQUIRED,false,,bitext
+B037,6616,want help checking ur money back policy,BITEXT_QUERY,NEEDS_CLARIFICATION,CLARIFY,false,,bitext
+B038,6629,I have to check in which cases can I request refdunds,BITEXT_QUERY,REFUND_ELIGIBILITY,CACHE_LOOKUP,true,,bitext
+B039,6801,"I need to see your reimbursement policy, how do I do it?",BITEXT_QUERY,REFUND_ELIGIBILITY,CACHE_LOOKUP,true,,bitext
+B040,6116,can i check how long refunds usually take,BITEXT_QUERY,REFUND_TIMELINE,CACHE_LOOKUP,true,,bitext
+B041,2423,information about modifying the delivery address,BITEXT_QUERY,CHANGE_ADDRESS,CACHE_LOOKUP,true,,bitext
+B042,2434,could you give me information about an address correction?,BITEXT_QUERY,CHANGE_ADDRESS,CACHE_LOOKUP,true,,bitext
+B043,2122,can you help me to correct the delivery address?,BITEXT_QUERY,CHANGE_ADDRESS,BYPASS_CACHE,false,,bitext
+B044,2221,wanna know more about correcting the address,BITEXT_QUERY,CHANGE_ADDRESS,CACHE_LOOKUP,true,,bitext
+B045,2769,I have issues changing my shipping address,BITEXT_QUERY,NEEDS_CLARIFICATION,CLARIFY,false,,bitext
+B046,2368,can you tell me about updating my fucking shipping address?,BITEXT_QUERY,CHANGE_ADDRESS,CACHE_LOOKUP,true,,bitext
+B047,2040,where can i correct the delivery address,BITEXT_QUERY,CHANGE_ADDRESS,CACHE_LOOKUP,true,,bitext
+B048,2966,"I have got to correct the delivery address, how to do it?",BITEXT_QUERY,CHANGE_ADDRESS,CACHE_LOOKUP,true,,bitext
+B049,2408,I am trying to find information about editing the address,BITEXT_QUERY,CHANGE_ADDRESS,CACHE_LOOKUP,true,,bitext
+B050,2178,information about a deliveryaddress change,BITEXT_QUERY,CHANGE_ADDRESS,CACHE_LOOKUP,true,,bitext
+B051,23650,there is an issue setting up my delivery address,BITEXT_QUERY,NEEDS_CLARIFICATION,CLARIFY,false,,bitext
+B052,23164,i do not know how to enter my damn new shipping address,BITEXT_QUERY,ADD_ADDRESS,CACHE_LOOKUP,true,,bitext
+B053,23843,I have a problem entering the secindary shipping address,BITEXT_QUERY,NEEDS_CLARIFICATION,CLARIFY,false,,bitext
+B054,23127,where could i submit a goddamn secondary delivery address,BITEXT_QUERY,ADD_ADDRESS,CACHE_LOOKUP,true,,bitext
+B055,23352,"I have to set my new delivery address up, I need assistance",BITEXT_QUERY,NEEDS_CLARIFICATION,CLARIFY,false,,bitext
+B056,23053,want help submitting a different delivery address,BITEXT_QUERY,NEEDS_CLARIFICATION,CLARIFY,false,,bitext
+B057,23209,how can i submit my shipping address,BITEXT_QUERY,NEEDS_CLARIFICATION,CLARIFY,false,,bitext
+B058,23303,"I have got to submit hte secondary shipping address, help me",BITEXT_QUERY,ADD_ADDRESS,CACHE_LOOKUP,true,,bitext
+B059,23879,can you help me set up my new shipping address?,BITEXT_QUERY,ADD_ADDRESS,CACHE_LOOKUP,true,,bitext
+B060,23413,shipping address issue,BITEXT_QUERY,NEEDS_CLARIFICATION,CLARIFY,false,,bitext
+M001,,Where can I find the tracking details for my order?,EQUIVALENT_PARAPHRASE,ORDER_TRACKING,CACHE_LOOKUP,true,S001,manual
+M002,,How do I check the tracking information for an order?,EQUIVALENT_PARAPHRASE,ORDER_TRACKING,CACHE_LOOKUP,true,S001,manual
+M003,,Can you explain how to track an order?,EQUIVALENT_PARAPHRASE,ORDER_TRACKING,CACHE_LOOKUP,true,S001,manual
+M004,,What steps should I follow to cancel an order?,EQUIVALENT_PARAPHRASE,CANCEL_ORDER,CACHE_LOOKUP,true,S002,manual
+M005,,How can I request cancellation of my purchase?,EQUIVALENT_PARAPHRASE,CANCEL_ORDER,CACHE_LOOKUP,true,S002,manual
+M006,,Where can I find the option to cancel an order?,EQUIVALENT_PARAPHRASE,CANCEL_ORDER,CACHE_LOOKUP,true,S002,manual
+M007,,Under what conditions can I get a refund?,EQUIVALENT_PARAPHRASE,REFUND_ELIGIBILITY,CACHE_LOOKUP,true,S003,manual
+M008,,Which situations qualify an order for a refund?,EQUIVALENT_PARAPHRASE,REFUND_ELIGIBILITY,CACHE_LOOKUP,true,S003,manual
+M009,,What makes a purchase eligible for reimbursement?,EQUIVALENT_PARAPHRASE,REFUND_ELIGIBILITY,CACHE_LOOKUP,true,S003,manual
+M010,,Can you explain the eligibility rules for refunds?,EQUIVALENT_PARAPHRASE,REFUND_ELIGIBILITY,CACHE_LOOKUP,true,S003,manual
+M011,,How long does an approved refund usually take?,EQUIVALENT_PARAPHRASE,REFUND_TIMELINE,CACHE_LOOKUP,true,S004,manual
+M012,,What is the usual refund processing period?,EQUIVALENT_PARAPHRASE,REFUND_TIMELINE,CACHE_LOOKUP,true,S004,manual
+M013,,Within how many business days should I expect an approved refund?,EQUIVALENT_PARAPHRASE,REFUND_TIMELINE,CACHE_LOOKUP,true,S004,manual
+M014,,How can I modify my delivery address before dispatch?,EQUIVALENT_PARAPHRASE,CHANGE_ADDRESS,CACHE_LOOKUP,true,S005,manual
+M015,,Where can I edit the shipping address for an order?,EQUIVALENT_PARAPHRASE,CHANGE_ADDRESS,CACHE_LOOKUP,true,S005,manual
+M016,,What is the procedure for updating an order's delivery address?,EQUIVALENT_PARAPHRASE,CHANGE_ADDRESS,CACHE_LOOKUP,true,S005,manual
+M017,,How do I correct an incorrect shipping address before my order ships?,EQUIVALENT_PARAPHRASE,CHANGE_ADDRESS,CACHE_LOOKUP,true,S005,manual
+M018,,How can I add a new delivery address to my account?,EQUIVALENT_PARAPHRASE,ADD_ADDRESS,CACHE_LOOKUP,true,S006,manual
+M019,,Where can I save an additional shipping address?,EQUIVALENT_PARAPHRASE,ADD_ADDRESS,CACHE_LOOKUP,true,S006,manual
+M020,,What steps are required to enter a new address in my account?,EQUIVALENT_PARAPHRASE,ADD_ADDRESS,CACHE_LOOKUP,true,S006,manual
+H001,,Where is my order right now?,HARD_NEGATIVE,ORDER_LIVE_STATUS,BYPASS_CACHE,false,S001,manual
+H002,,Has my order been shipped yet?,HARD_NEGATIVE,ORDER_LIVE_STATUS,BYPASS_CACHE,false,S001,manual
+H003,,Can you cancel my order immediately?,HARD_NEGATIVE,CANCEL_ORDER,BYPASS_CACHE,false,S002,manual
+H004,,Has my cancellation request been processed?,HARD_NEGATIVE,CANCEL_ORDER,BYPASS_CACHE,false,S002,manual
+H005,,Has my refund been approved?,HARD_NEGATIVE,REFUND_STATUS,BYPASS_CACHE,false,S003,manual
+H006,,Why has my refund not arrived yet?,HARD_NEGATIVE,REFUND_STATUS,BYPASS_CACHE,false,S004,manual
+H007,,Please change the delivery address of my current order.,HARD_NEGATIVE,CHANGE_ADDRESS,BYPASS_CACHE,false,S005,manual
+H008,,Has my shipping address been updated successfully?,HARD_NEGATIVE,CHANGE_ADDRESS,BYPASS_CACHE,false,S005,manual
+H009,,What is the delivery address saved on my account?,HARD_NEGATIVE,,BYPASS_CACHE,false,S006,manual
+H010,,Replace my existing saved address with a new one.,HARD_NEGATIVE,ADD_ADDRESS,BYPASS_CACHE,false,S006,manual
+U001,,What is the capital of Japan?,UNRELATED,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manual
+U002,,Explain how machine learning works.,UNRELATED,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manual
+U003,,Can you suggest a healthy breakfast?,UNRELATED,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manual
+U004,,How do I create a Python dictionary?,UNRELATED,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manual
+U005,,What are the benefits of regular exercise?,UNRELATED,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manual
+U006,,Explain the difference between RAM and ROM.,UNRELATED,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manual
+U007,,How can I improve my public speaking skills?,UNRELATED,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manual
+U008,,What causes a rainbow to appear?,UNRELATED,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manual
+U009,,Suggest some beginner-friendly chess strategies.,UNRELATED,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manual
+U010,,How do I calculate the standard deviation?,UNRELATED,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manual
