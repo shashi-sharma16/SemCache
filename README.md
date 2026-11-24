@@ -245,6 +245,30 @@ The expanded cache contains 14 seed entries, compared with 6 entries in the orig
 
 At a threshold of 0.75, the expanded cache recovered five additional correct matches compared with the original cache, with no false cache hits on this benchmark.
 
+### API Performance Benchmark
+
+The API was evaluated using 100 customer-support queries before and after replacing LLM-generated cache-miss responses with authoritative policy-based responses.
+
+| Metric | Before Policy Fallback | Current Policy Fallback |
+|---|---:|---:|
+| Requests | 100 | 100 |
+| Successful Requests | 100 | 100 |
+| Mean Latency | 1.3729 s | 0.0737 s |
+| Median Latency | 0.0172 s | 0.0224 s |
+| P95 Latency | 6.3420 s | 0.1328 s |
+| Maximum Latency | 11.2778 s | 2.4650 s |
+
+**Key Observations:**
+
+- Mean API latency decreased by approximately 94.6%.
+- P95 latency decreased by approximately 97.9%.
+- Maximum observed latency decreased from 11.2778 seconds to 2.465 seconds.
+- Both implementations successfully processed all 100 requests.
+
+The improvement primarily reflects the removal of local LLM generation from the cache-miss response path. The current implementation retrieves authoritative policy answers instead.
+
+These are observed results from sequential tests on the same local machine, not controlled production-scale benchmarks. The median latency increased slightly, indicating that the improvement was concentrated in requests that previously incurred expensive LLM generation.
+
 ### Unseen-Query Evaluation
 
 | Component | Evaluation Result |
