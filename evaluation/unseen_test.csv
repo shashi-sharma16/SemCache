@@ -1,0 +1,51 @@
+﻿query_id,source_row_id,query,query_type,expected_policy_id,expected_outcome,cacheable,related_query_id,source
+U001,,Where in my account can I follow a parcel after placing an order?,UNSEEN_EQUIVALENT,ORDER_TRACKING,CACHE_LOOKUP,true,,manually_curated
+U002,,What steps show the delivery progress for a purchase?,UNSEEN_EQUIVALENT,ORDER_TRACKING,CACHE_LOOKUP,true,,manually_curated
+U003,,How can I view shipment tracking details online?,UNSEEN_EQUIVALENT,ORDER_TRACKING,CACHE_LOOKUP,true,,manually_curated
+U004,,Where do I look up the tracking information for an order?,UNSEEN_EQUIVALENT,ORDER_TRACKING,CACHE_LOOKUP,true,,manually_curated
+U005,,What requirements determine if an item can be refunded?,UNSEEN_EQUIVALENT,REFUND_ELIGIBILITY,CACHE_LOOKUP,true,,manually_curated
+U006,,Under what conditions does ShopEase accept refund requests?,UNSEEN_EQUIVALENT,REFUND_ELIGIBILITY,CACHE_LOOKUP,true,,manually_curated
+U007,,How can I tell whether a product qualifies for a refund?,UNSEEN_EQUIVALENT,REFUND_ELIGIBILITY,CACHE_LOOKUP,true,,manually_curated
+U008,,What makes an order eligible to receive money back?,UNSEEN_EQUIVALENT,REFUND_ELIGIBILITY,CACHE_LOOKUP,true,,manually_curated
+U009,,How many working days are needed for an approved refund to arrive?,UNSEEN_EQUIVALENT,REFUND_TIMELINE,CACHE_LOOKUP,true,,manually_curated
+U010,,When should I expect an approved refund to appear on my original payment method?,UNSEEN_EQUIVALENT,REFUND_TIMELINE,CACHE_LOOKUP,true,,manually_curated
+U011,,What is the normal waiting period after a refund gets approved?,UNSEEN_EQUIVALENT,REFUND_TIMELINE,CACHE_LOOKUP,true,,manually_curated
+U012,,What is the procedure for withdrawing an order before it is sent?,UNSEEN_EQUIVALENT,CANCEL_ORDER,CACHE_LOOKUP,true,,manually_curated
+U013,,Is there a way to stop an order before dispatch and how?,UNSEEN_EQUIVALENT,CANCEL_ORDER,CACHE_LOOKUP,true,,manually_curated
+U014,,Where do I find the option to request an order cancellation?,UNSEEN_EQUIVALENT,CANCEL_ORDER,CACHE_LOOKUP,true,,manually_curated
+U015,,Where in the order page can I modify its delivery destination before dispatch?,UNSEEN_EQUIVALENT,CHANGE_ADDRESS,CACHE_LOOKUP,true,,manually_curated
+U016,,What steps let me replace the shipping location on an unshipped order?,UNSEEN_EQUIVALENT,CHANGE_ADDRESS,CACHE_LOOKUP,true,,manually_curated
+U017,,Can an existing purchase's delivery details be edited before it leaves the warehouse?,UNSEEN_EQUIVALENT,CHANGE_ADDRESS,CACHE_LOOKUP,true,,manually_curated
+U018,,Where do I register an additional delivery location in my account?,UNSEEN_EQUIVALENT,ADD_ADDRESS,CACHE_LOOKUP,true,,manually_curated
+U019,,How can I store a second shipping location for future purchases?,UNSEEN_EQUIVALENT,ADD_ADDRESS,CACHE_LOOKUP,true,,manually_curated
+U020,,What menu lets me save another delivery destination to my profile?,UNSEEN_EQUIVALENT,ADD_ADDRESS,CACHE_LOOKUP,true,,manually_curated
+U021,,Has my refund already been credited to my card?,UNSEEN_HARD_NEGATIVE,REFUND_STATUS,BYPASS_CACHE,false,,manually_curated
+U022,,What is the current location of my shipment?,UNSEEN_HARD_NEGATIVE,ORDER_LIVE_STATUS,BYPASS_CACHE,false,,manually_curated
+U023,,Can an order be cancelled once the courier has dispatched it?,UNSEEN_HARD_NEGATIVE,CANCEL_ORDER,CACHE_LOOKUP,true,,manually_curated
+U024,,How can I return a product after delivery?,UNSEEN_HARD_NEGATIVE,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manually_curated
+U025,,Was my refund request approved?,UNSEEN_HARD_NEGATIVE,REFUND_STATUS,BYPASS_CACHE,false,,manually_curated
+U026,,How do I add a new address without changing the destination of an existing order?,UNSEEN_HARD_NEGATIVE,ADD_ADDRESS,CACHE_LOOKUP,true,,manually_curated
+U027,,How do I change the delivery address for an order that has not shipped?,UNSEEN_HARD_NEGATIVE,CHANGE_ADDRESS,CACHE_LOOKUP,true,,manually_curated
+U028,,Can you confirm that my saved address was updated?,UNSEEN_HARD_NEGATIVE,ADD_ADDRESS,BYPASS_CACHE,false,,manually_curated
+U029,,How can I change the payment method on an order?,UNSEEN_HARD_NEGATIVE,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manually_curated
+U030,,What are the steps for requesting a replacement item instead of a refund?,UNSEEN_HARD_NEGATIVE,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manually_curated
+U031,,Can I cancel a purchase after the courier has picked it up?,UNSEEN_HARD_NEGATIVE,CANCEL_ORDER,CACHE_LOOKUP,true,,manually_curated
+U032,,Where can I read the rules for returning a damaged item?,UNSEEN_HARD_NEGATIVE,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manually_curated
+U033,,Has my refund been processed?,UNSEEN_HARD_NEGATIVE,REFUND_STATUS,BYPASS_CACHE,false,,manually_curated
+U034,,What is the latest tracking location for my order?,UNSEEN_HARD_NEGATIVE,ORDER_LIVE_STATUS,BYPASS_CACHE,false,,manually_curated
+U035,,Can I update the address on my profile for all future orders?,UNSEEN_HARD_NEGATIVE,ADD_ADDRESS,CACHE_LOOKUP,true,,manually_curated
+U036,,Is my order marked as delivered now?,UNSEEN_CUSTOMER_SPECIFIC,ORDER_LIVE_STATUS,BYPASS_CACHE,false,,manually_curated
+U037,,Where is my shipment currently?,UNSEEN_CUSTOMER_SPECIFIC,ORDER_LIVE_STATUS,BYPASS_CACHE,false,,manually_curated
+U038,,Has my order been delivered?,UNSEEN_CUSTOMER_SPECIFIC,ORDER_LIVE_STATUS,BYPASS_CACHE,false,,manually_curated
+U039,,Please check the latest status of my order.,UNSEEN_CUSTOMER_SPECIFIC,ORDER_LIVE_STATUS,BYPASS_CACHE,false,,manually_curated
+U040,,Did my refund get processed?,UNSEEN_CUSTOMER_SPECIFIC,REFUND_STATUS,BYPASS_CACHE,false,,manually_curated
+U041,,Has my refund been approved yet?,UNSEEN_CUSTOMER_SPECIFIC,REFUND_STATUS,BYPASS_CACHE,false,,manually_curated
+U042,,Cancel my current order right now.,UNSEEN_CUSTOMER_SPECIFIC,CANCEL_ORDER,BYPASS_CACHE,false,,manually_curated
+U043,,Please change my existing order's shipping address.,UNSEEN_CUSTOMER_SPECIFIC,CHANGE_ADDRESS,BYPASS_CACHE,false,,manually_curated
+U044,,Show me the latest ETA for my delivery.,UNSEEN_CUSTOMER_SPECIFIC,ORDER_LIVE_STATUS,BYPASS_CACHE,false,,manually_curated
+U045,,Has my shipment been delivered to my address?,UNSEEN_CUSTOMER_SPECIFIC,ORDER_LIVE_STATUS,BYPASS_CACHE,false,,manually_curated
+U046,,Can you explain how compound interest works?,UNSEEN_UNSUPPORTED,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manually_curated
+U047,,What is the weather forecast for tomorrow?,UNSEEN_UNSUPPORTED,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manually_curated
+U048,,Help me reset the password for my music streaming account.,UNSEEN_UNSUPPORTED,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manually_curated
+U049,,How do I book a doctor appointment online?,UNSEEN_UNSUPPORTED,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manually_curated
+U050,,Can you summarize the latest football match?,UNSEEN_UNSUPPORTED,NEEDS_REVIEW,REVIEW_REQUIRED,false,,manually_curated
