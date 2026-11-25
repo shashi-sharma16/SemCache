@@ -13,5 +13,8 @@ LLM_MODEL = "qwen2.5:3b"
 CHROMA_DB_PATH = BASE_DIR / "chroma_db"
 COLLECTION_NAME = "semcache"
 
+# Metrics database configuration
+METRICS_DB_PATH = BASE_DIR / "data" / "metrics.db"
+
 # Cache configuration
 SIMILARITY_THRESHOLD = 0.85

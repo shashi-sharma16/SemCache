@@ -16,7 +16,13 @@ collection = client.get_or_create_collection(
 )
 
 
-# Separate collection: used for the expanded-cache experiment
+# Separate collection for the general-purpose semantic cache
+general_collection = client.get_or_create_collection(
+    name=f"{COLLECTION_NAME}_general",
+    metadata={"hnsw:space": "cosine"}
+)
+
+# Separate collection: preserves the expanded-cache experiment
 expanded_collection = client.get_or_create_collection(
     name=f"{COLLECTION_NAME}_expanded",
     metadata={"hnsw:space": "cosine"}
@@ -102,3 +108,39 @@ def search_expanded_cache(
     return _search_collection(
         expanded_collection, embedding, policy_id, n_results
     )
+
+def add_general_cache_entry(cache_id, query, embedding, answer):
+    """Store a generated question-answer pair in the general cache."""
+
+    general_collection.add(
+        ids=[cache_id],
+        documents=[query],
+        embeddings=[embedding],
+        metadatas=[{
+            "answer": answer,
+            "created_at": datetime.now(timezone.utc).isoformat()
+        }]
+    )
+
+
+def search_general_cache(embedding: list[float], n_results: int = 1):
+    """Find the most semantically similar question in the general cache."""
+
+    if general_collection.count() == 0:
+        return None
+
+    results = general_collection.query(
+        query_embeddings=[embedding],
+        n_results=min(n_results, general_collection.count()),
+        include=["documents", "metadatas", "distances"]
+    )
+
+    if not results["ids"][0]:
+        return None
+
+    return {
+        "id": results["ids"][0][0],
+        "query": results["documents"][0][0],
+        "metadata": results["metadatas"][0][0],
+        "distance": results["distances"][0][0]
+    }

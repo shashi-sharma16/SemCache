@@ -1,11 +1,15 @@
 
+import time
+
 from fastapi import APIRouter
 from pydantic import BaseModel, Field, field_validator
 
-from backend.services.query_guard import guard_query
-from backend.services.policy_classifier import identify_policy
-from backend.services.policy_service import get_policy
-from backend.services.cache_service import lookup_expanded_cache
+from backend.services.cache_service import (
+    lookup_general_cache,
+    store_general_cache
+)
+from backend.services.llm_service import generate_answer
+from backend.services.metrics_service import record_request, get_metrics
 
 
 router = APIRouter()
@@ -16,7 +20,7 @@ class QueryRequest(BaseModel):
         ...,
         min_length=1,
         max_length=1000,
-        description="Customer support query"
+        description="Question to process using semantic caching"
     )
 
     @field_validator("query")
@@ -29,91 +33,72 @@ class QueryRequest(BaseModel):
 
         return value
 
+
 @router.post("/query")
 def process_query(request: QueryRequest):
-
     query = request.query.strip()
+    start_time = time.perf_counter()
 
-    # Step 1: Query Guard
-    guard_result = guard_query(query)
-    decision = guard_result["decision"]
-
-    if decision == "CLARIFY":
-        return {
-            "decision": decision,
-            "reason": guard_result["reason"],
-            "answer": "Could you please provide more details about your request?",
-            "cache_hit": False
-        }
-
-    if decision == "REVIEW_REQUIRED":
-        return {
-            "decision": decision,
-            "reason": guard_result["reason"],
-            "answer": "This request is outside the supported ShopEase policy scope.",
-            "cache_hit": False
-        }
-
-    if decision == "BYPASS_CACHE":
-        return {
-            "decision": decision,
-            "reason": guard_result["reason"],
-            "answer": (
-                "This request requires customer-specific information. "
-                "Please contact ShopEase support or use its authenticated "
-                "support system."
-            ),
-            "cache_hit": False
-        }
-
-    # Step 2: Identify policy
-    classification = identify_policy(query)
-
-    if not classification["identified"]:
-        return {
-            "decision": "REVIEW_REQUIRED",
-            "reason": "POLICY_NOT_IDENTIFIED",
-            "answer": "I could not identify a suitable ShopEase policy for this request.",
-            "cache_hit": False,
-            "policy_similarity": classification["similarity"]
-        }
-
-    policy_id = classification["policy_id"]
-
-    # Step 3: Search expanded semantic cache
-    cache_result = lookup_expanded_cache(
-        query=query,
-        policy_id=policy_id
-    )
+    # Step 1: Search the semantic cache
+    cache_result = lookup_general_cache(query)
 
     if cache_result["cache_hit"]:
+
+        latency = round(time.perf_counter() - start_time, 6)
+
+        record_request(
+            decision="CACHE_HIT",
+            llm_called=False,
+            prompt_tokens=0,
+            completion_tokens=0,
+            latency_seconds=latency
+        )
         return {
-            "decision": decision,
-            "reason": "SEMANTIC_CACHE_HIT",
+            "decision": "CACHE_HIT",
+            "reason": "SEMANTIC_MATCH_FOUND",
             "answer": cache_result["answer"],
             "cache_hit": True,
-            "policy_id": policy_id,
+            "llm_called": False,
+            "matched_query": cache_result["matched_query"],
             "similarity": cache_result["similarity"],
-            "matched_query": cache_result["matched_query"]
+            "latency_seconds": latency
         }
 
-    # Step 4: Cache miss - return the authoritative policy answer
-    policy = get_policy(policy_id)
+    # Step 2: Cache miss - generate a new answer using the LLM
+    llm_result = generate_answer(query)
 
-    if not policy:
-        return {
-            "decision": "REVIEW_REQUIRED",
-            "reason": "POLICY_NOT_FOUND",
-            "answer": "The requested ShopEase policy could not be retrieved.",
-            "cache_hit": False,
-            "policy_id": policy_id
-        }
+    answer = llm_result["answer"]
+    prompt_tokens = llm_result["prompt_tokens"]
+    completion_tokens = llm_result["completion_tokens"]
+
+    # Step 3: Store the generated answer in the semantic cache
+    store_general_cache(query, answer)
+
+    latency = round(time.perf_counter() - start_time, 6)
+
+    record_request(
+        decision="CACHE_MISS",
+        llm_called=True,
+        prompt_tokens=prompt_tokens,
+        completion_tokens=completion_tokens,
+        latency_seconds=latency
+    )
 
     return {
-        "decision": decision,
-        "reason": "CACHE_MISS",
-        "answer": policy["answer"],
+        "decision": "CACHE_MISS",
+        "reason": cache_result["reason"],
+        "answer": answer,
         "cache_hit": False,
-        "policy_id": policy_id,
-        "similarity": cache_result.get("similarity")
+        "llm_called": True,
+        "prompt_tokens": prompt_tokens,
+        "completion_tokens": completion_tokens,
+        "matched_query": cache_result.get("matched_query"),
+        "similarity": cache_result.get("similarity"),
+        "latency_seconds": latency
     }
+
+@router.get("/metrics")
+def read_metrics():
+    """Return overall semantic cache performance metrics."""
+
+    return get_metrics()
