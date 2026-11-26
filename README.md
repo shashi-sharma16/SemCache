@@ -1,176 +1,97 @@
-# SemCache
+﻿# SemCache
 
-**An Intelligent Semantic Caching Engine for LLM Applications**
+**A General-Purpose Semantic Caching Engine for LLM Applications**
 
-SemCache is a local semantic caching engine designed to reduce repeated Large Language Model (LLM) calls by identifying semantically similar queries and reusing previously stored responses.
+SemCache is a local semantic caching system that reduces unnecessary Large Language Model (LLM) calls by recognizing questions with similar meanings and reusing previously generated answers.
 
-SemCache goes beyond basic similarity-based caching by combining rule-based query routing, embedding-based policy classification, and policy-aware semantic retrieval. This helps prevent inappropriate cache reuse for requests that require customer-specific or live information.
+Instead of generating a new response for every request, SemCache converts questions into vector embeddings and searches for semantically similar questions in a persistent ChromaDB collection.
 
-## Problem Statement
+If a sufficiently similar question already exists, its cached answer is returned without calling the LLM. Otherwise, SemCache generates a new answer using a locally running LLM and stores it for future reuse.
 
-LLM applications often receive repeated questions expressed in different ways. Generating a new response for every repeated query increases inference workload and response latency.
+## How It Works
 
-However, blindly reusing responses based only on text similarity can produce incorrect results, particularly when a question requires customer-specific or live information.
-
-SemCache addresses this problem through a multi-stage query-processing pipeline.
-
-## Architecture
-
-A customer query passes through the following stages:
-
-1. **Query Guard:** Determines whether the request should use the cache, bypass it, request clarification, or require review.
-2. **Policy Classifier:** Identifies the relevant supported policy for cacheable queries.
-3. **Semantic Cache:** Searches for a sufficiently similar query within the identified policy.
-4. **Policy-Based Fallback:** If no sufficiently similar cached response exists, SemCache returns the configured answer from its policy knowledge base.
-
-### Request Flow
-
-```text
-Customer Query
-      |
-      v
-  Query Guard
-      |
-      +---- CLARIFY
-      |
-      +---- REVIEW_REQUIRED
-      |
-      +---- BYPASS_CACHE
-      |
-      v
- Policy Classifier
-      |
-      +---- Policy Not Identified
-      |          |
-      |          v
-      |     REVIEW_REQUIRED
-      |
-      v
- Policy-Aware Semantic Cache
-      |
-      +---- Cache Hit
-      |        |
-      |        v
-      |   Return Cached Answer
-      |
-      +---- Cache Miss
-               |
-               v
-         Retrieve Policy Answer
-               |
-               v
-         Return Policy Answer
-```
-
-## Key Features
-
-- Semantic similarity-based query matching.
-- Policy-aware cache retrieval.
-- Query Guard for request routing.
-- Policy classification using sentence embeddings.
-- Configured policy-based responses on cache misses.
-- Local LLM service available for future verified-generation improvements.
-- Customer-specific request bypass.
-- Clarification and unsupported-request handling.
-- REST API built with FastAPI.
-- Persistent vector storage using ChromaDB.
-- Benchmarking and manually curated unseen-query evaluation.
+1. A user submits a question through the API.
+2. SemCache converts the question into an embedding using Sentence Transformers.
+3. ChromaDB searches for a semantically similar cached question.
+4. If similarity meets the configured threshold, the stored answer is returned.
+5. If no suitable match exists, Ollama generates a new answer.
+6. The new question and answer are stored in the cache.
 
 ## Technology Stack
 
 | Component | Technology |
 |---|---|
+| Backend API | FastAPI |
 | Programming Language | Python |
-| API Framework | FastAPI |
-| API Server | Uvicorn |
-| Embedding Model | all-MiniLM-L6-v2 |
+| Embeddings | all-MiniLM-L6-v2 |
 | Vector Database | ChromaDB |
-| Local LLM Runtime | Ollama (optional; not used by current API pipeline) |
-| LLM | Qwen 2.5 3B (available for future integration) |
-| Data Validation | Pydantic |
-| Version Control | Git and GitHub |
+| Local LLM | Qwen 2.5 3B |
+| LLM Runtime | Ollama |
+| Metrics Storage | SQLite |
 
 ## Project Structure
 
 ```text
 SemCache/
-│
 ├── backend/
 │   ├── api/
 │   │   └── routes.py
 │   ├── core/
 │   │   └── config.py
-│   ├── models/
-│   │   └── __init__.py
 │   ├── services/
 │   │   ├── cache_service.py
 │   │   ├── embedding_service.py
-│   │   ├── expanded_seed_service.py
 │   │   ├── llm_service.py
-│   │   ├── policy_classifier.py
-│   │   ├── policy_service.py
-│   │   ├── query_guard.py
-│   │   ├── seed_service.py
+│   │   ├── metrics_service.py
 │   │   └── vector_store.py
-│   ├── __init__.py
 │   └── main.py
-│
-├── dataset/
-│   ├── bitext_selected_60.csv
-│   ├── query_policy_mapping.csv
-│   ├── select_dataset.py
-│   └── shopease_policies.json
-│
 ├── evaluation/
-│   ├── benchmark.csv
-│   ├── cache_seeds.csv
-│   ├── expanded_cache_seeds.csv
-│   ├── unseen_test.csv
-│   └── evaluation scripts and reports
-│
-├── inspect_dataset.py
-├── inspect_flags.py
-├── inspect_intents.py
-├── requirements.txt
+│   ├── run_benchmark.py
+│   └── benchmark_results.csv
 ├── .gitignore
+├── requirements.txt
 └── README.md
 ```
 
-## Getting Started
-
-### Prerequisites
+## Requirements
 
 - Python 3.13
+- Ollama
 - Git
 
-### 1. Clone the repository
+## Installation and Setup
+
+**1. Clone the repository**
 
 ```bash
 git clone https://github.com/shashi-sharma16/SemCache.git
 cd SemCache
 ```
 
-### 2. Create a virtual environment
+**2. Create and activate a virtual environment**
 
-```bash
-python -m venv .venv
-```
-
-Activate it on Windows PowerShell:
+Windows PowerShell:
 
 ```powershell
+python -m venv .venv
 .venv\Scripts\Activate.ps1
 ```
 
-### 3. Install dependencies
+**3. Install dependencies**
 
-```bash
+```powershell
 pip install -r requirements.txt
 ```
 
-### 4. Start the API
+**4. Download the required Ollama model**
 
-From the project root:
+```bash
+ollama pull qwen2.5:3b
+```
+
+Ensure Ollama is running before starting the application.
+
+**5. Start the FastAPI server**
 
 ```bash
 uvicorn backend.main:app --reload
@@ -180,129 +101,139 @@ The API will be available at:
 
 `http://127.0.0.1:8000`
 
-Swagger documentation:
+Interactive API documentation:
 
 `http://127.0.0.1:8000/docs`
-
-Health endpoint:
-
-`http://127.0.0.1:8000/health`
-
-The expanded semantic cache is initialized automatically when the application starts.
 
 ## API Usage
 
 ### POST /query
 
-Request:
+Submit a question for semantic cache lookup or LLM generation.
+
+**Example request:**
 
 ```json
 {
-  "query": "How do I track my order?"
+  "query": "What is machine learning?"
 }
 ```
 
-Example response:
+**Example cache miss response:**
 
 ```json
 {
-  "decision": "CACHE_LOOKUP",
-  "reason": "SEMANTIC_CACHE_HIT",
-  "answer": "To track your order, log in to your ShopEase account...",
+  "decision": "CACHE_MISS",
+  "reason": "EMPTY_CACHE",
+  "answer": "Machine learning is a branch of artificial intelligence...",
+  "cache_hit": false,
+  "llm_called": true,
+  "prompt_tokens": 50,
+  "completion_tokens": 100,
+  "matched_query": null,
+  "similarity": null,
+  "latency_seconds": 2.5
+}
+```
+
+**Example cache hit response:**
+
+```json
+{
+  "decision": "CACHE_HIT",
+  "reason": "SEMANTIC_MATCH_FOUND",
+  "answer": "Machine learning is a branch of artificial intelligence...",
   "cache_hit": true,
-  "policy_id": "ORDER_TRACKING",
-  "similarity": 0.9999,
-  "matched_query": "How do I track my order?"
+  "llm_called": false,
+  "matched_query": "What is machine learning?",
+  "similarity": 0.93,
+  "latency_seconds": 0.03
 }
 ```
 
-### GET /health
+*Response values above are illustrative.*
 
-Checks whether the API is operational.
+### GET /metrics
 
-## Evaluation
+Returns overall cache performance metrics.
 
-SemCache was evaluated using a curated customer-support benchmark and a separate manually curated unseen-query holdout.
+The metrics include:
 
-### Expanded Cache Benchmark
+- Total requests
+- Cache hits and misses
+- Cache hit rate
+- Total LLM calls
+- LLM calls avoided
+- Prompt and completion token usage
+- Average cache-hit latency
+- Average cache-miss latency
 
-The expanded cache contains 14 seed entries, compared with 6 entries in the original cache.
+Example:
 
-| Similarity Threshold | Original Cache Recall | Expanded Cache Recall |
-|---|---:|---:|
-| 0.75 | 47.6% | 59.5% |
-| 0.80 | 33.3% | 47.6% |
-| 0.85 | 26.2% | 38.1% |
-| 0.90 | 9.5% | 19.0% |
-| 0.95 | 2.4% | 9.5% |
+`http://127.0.0.1:8000/metrics`
 
-At a threshold of 0.75, the expanded cache recovered five additional correct matches compared with the original cache, with no false cache hits on this benchmark.
+## Configuration
 
-### API Performance Benchmark
+Project settings are available in `backend/core/config.py`.
 
-The same 100-query API benchmark was run against two implementations: the earlier version with LLM-generated cache-miss responses and the current version with policy-based cache-miss responses.
+| Setting | Value |
+|---|---|
+| Embedding model | all-MiniLM-L6-v2 |
+| LLM model | qwen2.5:3b |
+| Similarity threshold | 0.85 |
+| Vector database | ChromaDB |
+| Metrics database | SQLite |
 
-| Metric | Before Policy Fallback | Current Policy Fallback |
-|---|---:|---:|
-| Requests | 100 | 100 |
-| Successful Requests | 100 | 100 |
-| Mean Latency | 1.3729 s | 0.0737 s |
-| Median Latency | 0.0172 s | 0.0224 s |
-| P95 Latency | 6.3420 s | 0.1328 s |
-| Maximum Latency | 11.2778 s | 2.4650 s |
+The similarity threshold determines how similar a new question must be to an existing cached question before its answer can be reused.
 
-**Key Observations:**
+## Performance Measurement
 
-- Mean API latency decreased by approximately 94.6%.
-- P95 latency decreased by approximately 97.9%.
-- Maximum observed latency decreased from 11.2778 seconds to 2.465 seconds.
-- Both implementations successfully processed all 100 requests.
+SemCache records request-level metrics to evaluate its effectiveness.
 
-The improvement primarily reflects the removal of local LLM generation from the cache-miss response path. The current implementation retrieves configured policy answers instead.
+The primary measurement is the number of requests answered directly from the semantic cache instead of calling the LLM.
 
-These are observed results from sequential tests on the same local machine, not controlled production-scale benchmarks. The median latency increased slightly, indicating that the improvement was concentrated in requests that previously incurred expensive LLM generation.
+**Cache hit rate:**
 
-### Unseen-Query Evaluation
+Cache Hit Rate = (Cache Hits / Total Requests) × 100
 
-| Component | Evaluation Result |
+**LLM calls avoided:**
+
+Every successful cache hit represents one avoided LLM invocation.
+
+### 100-Question Benchmark Results
+
+The system was evaluated using 100 questions arranged into 25 groups of four semantically related questions. The benchmark measures whether differently worded questions can reuse previously cached answers.
+
+| Metric | Result |
 |---|---:|
-| Query Guard | 84% accuracy |
-| Policy Classifier | 88% accuracy |
-| Expanded Cache at 0.75 | 87.5% precision |
-| Expanded Cache at 0.75 | 28% recall |
+| Total questions | 100 |
+| Cache hits | 21 |
+| Cache misses | 79 |
+| Cache hit rate | 21% |
+| LLM calls | 79 |
+| LLM calls avoided | 21 |
+| Average cache-hit latency | 0.0218 seconds |
+| Average cache-miss latency | 16.3925 seconds |
+| Total prompt tokens | 4,474 |
+| Total completion tokens | 13,222 |
 
-The unseen cache evaluation recorded seven correct hits and one false hit at the 0.75 threshold.
+The benchmark uses a curated set of related questions and measures semantic reuse at the configured similarity threshold of 0.85. Results may differ with other datasets, query distributions, and threshold settings.
 
-### Important Evaluation Limitations
+The benchmark can be run with:
 
-- The datasets are curated and do not represent real customer-support traffic.
-- The ShopEase company and its policies are fictional.
-- Benchmark results depend on the selected cache seeds and similarity thresholds.
-- Some development thresholds were selected using the development benchmark.
-- The unseen-query holdout is manually curated, not independently collected external data.
-- The Query Guard is a rule-based prototype and should not be treated as a production safety guarantee.
+```powershell
+python evaluation/run_benchmark.py
+```
 
-## Current Limitations
+The script saves individual query results in `evaluation/benchmark_results.csv`.
 
-- No integration with a real customer-support or order-management system.
-- Customer-specific requests are directed to support rather than retrieved from live customer records.
-- The API currently returns configured policy answers on cache misses rather than unverified LLM-generated responses.
-- LLM-generated responses are not automatically added to the cache.
-- The current policy classifier supports a limited set of predefined policies.
-- Production-scale performance and latency testing remain future work.
+## Important Notes
 
-## Future Improvements
-
-- Improve policy classification on unseen queries.
-- Introduce more robust query-routing techniques.
-- Evaluate adaptive similarity thresholds.
-- Add cache monitoring and performance metrics.
-- Explore controlled cache updates and invalidation.
-- Integrate with external LLM applications through a reusable API.
-
-## Project Status
-
-**Core API integration and initial end-to-end testing completed.**
-
-SemCache is an experimental portfolio project exploring semantic caching, policy-aware retrieval, and safe query routing for LLM applications.
+- SemCache runs locally using Ollama.
+- No paid LLM API is required.
+- ChromaDB stores cached question embeddings and answers persistently.
+- SQLite stores request-level performance metrics.
+- Cache hits reuse stored answers without making another LLM call.
+- Cache misses generate a new answer and add it to the cache.
+- Runtime databases and virtual environments are excluded from Git.
 
